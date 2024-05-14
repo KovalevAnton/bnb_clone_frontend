@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import CustomButton from '../forms/CustomButton';
-// import { handleLogin } from '@/app/lib/actions';
-// import apiService from '@/app/services/apiService';
+import { handleLogin } from '@/app/lib/actions';
+import apiService from '@/app/services/apiService';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -22,20 +22,20 @@ const LoginModal = () => {
       password: password,
     };
 
-    // const response = await apiService.postWithoutToken(
-    //   '/api/auth/login/',
-    //   JSON.stringify(formData)
-    // );
+    const response = await apiService.postWithoutToken(
+      '/api/auth/login/',
+      JSON.stringify(formData)
+    );
 
-    // if (response.access) {
-    //   handleLogin(response.user.pk, response.access, response.refresh);
+    if (response.access) {
+      handleLogin(response.user.pk, response.access, response.refresh);
 
-    //   loginModal.close();
+      loginModal.close();
 
-    //   router.push('/');
-    // } else {
-    //   setErrors(response.non_field_errors);
-    // }
+      router.push('/');
+    } else {
+      setErrors(response.non_field_errors);
+    }
   };
 
   const content = (

@@ -3,11 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import MenuLink from "./MenuLink";
-// import LogoutButton from "../LogoutButton";
+import MenuLink from './MenuLink';
+import LogoutButton from '../LogoutButton';
 
-import useLoginModal from "@/app/hooks/useLoginModal";
-import useSignupModal from "@/app/hooks/useSignupModal";
+import useLoginModal from '@/app/hooks/useLoginModal';
+import useSignupModal from '@/app/hooks/useSignupModal';
 
 interface UserNavProps {
   userId?: string | null;
@@ -18,8 +18,6 @@ const UserNav: React.FC<UserNavProps> = ({ userId }) => {
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
   const [isOpen, setIsOpen] = useState(false);
-
-  console.log('asdf', userId);
 
   return (
     <div className="p-2 relative inline-block border rounded-full">
@@ -55,78 +53,61 @@ const UserNav: React.FC<UserNavProps> = ({ userId }) => {
 
       {isOpen && (
         <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
-          {/* {userId ? (
-                        <>
-                            <MenuLink
-                                label='Inbox'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    router.push('/inbox');
-                                }}
-                            />
+          {userId ? (
+            <>
+              <MenuLink
+                label="Inbox"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/inbox');
+                }}
+              />
 
-                            <MenuLink
-                                label='My properties'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    router.push('/myproperties');
-                                }}
-                            />
+              <MenuLink
+                label="My properties"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/myproperties');
+                }}
+              />
 
-                            <MenuLink
-                                label='My favorites'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    router.push('/myfavorites');
-                                }}
-                            />
+              <MenuLink
+                label="My favorites"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/myfavorites');
+                }}
+              />
 
-                            <MenuLink
-                                label='My reservations'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    router.push('/myreservations');
-                                }}
-                            />
+              <MenuLink
+                label="My reservations"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/myreservations');
+                }}
+              />
 
-                            <LogoutButton />
-                        </>
-                    ) : (
-                        <>
-                            <MenuLink 
-                                label='Log in'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    loginModal.open();
-                                }}
-                            />
+              <LogoutButton />
+            </>
+          ) : (
+            <>
+              <MenuLink
+                label="Log in"
+                onClick={() => {
+                  setIsOpen(false);
+                  loginModal.open();
+                }}
+              />
 
-                            <MenuLink 
-                                label='Sign up'
-                                onClick={() => {
-                                    setIsOpen(false);
-                                    signupModal.open();
-                                }}
-                            />
-                        </>
-                    )} */}
-          <>
-            <MenuLink
-              label="Log in"
-              onClick={() => {
-                setIsOpen(false);
-                loginModal.open();
-              }}
-            />
-
-            <MenuLink
-              label="Sign up"
-              onClick={() => {
-                setIsOpen(false);
-                signupModal.open();
-              }}
-            />
-          </>
+              <MenuLink
+                label="Sign up"
+                onClick={() => {
+                  setIsOpen(false);
+                  signupModal.open();
+                }}
+              />
+            </>
+          )}
         </div>
       )}
     </div>

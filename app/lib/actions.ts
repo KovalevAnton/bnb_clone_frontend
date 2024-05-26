@@ -26,7 +26,7 @@ export async function handleRefresh() {
 
       if (json.access) {
         cookies().set('session_access_token', json.access, {
-          httpOnly: true,
+          httpOnly: true, // Куки с флагом HttpOnly не видны браузерному коду, а отправляются только на сервер 
           secure: false,
           maxAge: 60 * 60, // 60 minutes
           path: '/',

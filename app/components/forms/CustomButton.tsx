@@ -4,7 +4,7 @@ interface CustomButtonProps {
     onClick: () => void;
 }
 
-const CustomButton: React.FC<any> = ({
+const CustomButton: React.FC<CustomButtonProps> = ({
     label,
     className,
     onClick

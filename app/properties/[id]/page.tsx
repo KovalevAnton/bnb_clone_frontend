@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { getUserId } from '@/app/lib/actions';
-import apiService from '@/app/services/apiService';
 import ReservationSidebar from '@/app/components/properties/ReservationSidebar';
+
+import apiService from '@/app/services/apiService';
+import { getUserId } from '@/app/lib/actions';
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   const property = await apiService.get(`/api/properties/${params.id}`);

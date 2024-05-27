@@ -3,85 +3,85 @@
 import { useEffect, useState, useRef } from 'react';
 import CustomButton from '../forms/CustomButton';
 import { ConversationType } from '@/app/inbox/page';
-// import useWebSocket, { ReadyState } from 'react-use-websocket';
-// import { MessageType } from '@/app/inbox/[id]/page';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { MessageType } from '@/app/inbox/[id]/page';
 import { UserType } from '@/app/inbox/page';
 
 interface ConversationDetailProps {
   token: string;
   userId: string;
   conversation: ConversationType;
-//   messages: MessageType[];
+  messages: MessageType[];
 }
 
-const ConversationDetail: React.FC<any> = ({
+const ConversationDetail: React.FC<ConversationDetailProps> = ({
   userId,
   token,
-//   messages,
+  messages,
   conversation,
 }) => {
-  const messagesDiv = useRef<HTMLDivElement>(null);
+  const messagesDiv = useRef(null);
   const [newMessage, setNewMessage] = useState('');
-//   const myUser = conversation.users?.find((user) => user.id == userId);
-//   const otherUser = conversation.users?.find((user) => user.id != userId);
-  //   const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
+  const myUser = conversation.users?.find((user) => user.id == userId);
+  const otherUser = conversation.users?.find((user) => user.id != userId);
+  const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
-  //   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-  //     `${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`,
-  //     {
-  //       share: false,
-  //       shouldReconnect: () => true,
-  //     }
-  //   );
+  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
+    `ws://127.0.0.1:8000/ws/${conversation.id}/?token=${token}`,
+    {
+      share: false,
+      shouldReconnect: () => true,
+    }
+  );
 
-  //   useEffect(() => {
-  //     console.log('Connection state changed', readyState);
-  //   }, [readyState]);
+  useEffect(() => {
+    console.log('Connection state changed', readyState);
+  }, [readyState]);
 
-  //   useEffect(() => {
-  //     if (
-  //       lastJsonMessage &&
-  //       typeof lastJsonMessage === 'object' &&
-  //       'name' in lastJsonMessage &&
-  //       'body' in lastJsonMessage
-  //     ) {
-  //       const message: MessageType = {
-  //         id: '',
-  //         name: lastJsonMessage.name as string,
-  //         body: lastJsonMessage.body as string,
-  //         sent_to: otherUser as UserType,
-  //         created_by: myUser as UserType,
-  //         conversationId: conversation.id,
-  //       };
+  useEffect(() => {
+    if (
+      lastJsonMessage &&
+      typeof lastJsonMessage === 'object' &&
+      'name' in lastJsonMessage &&
+      'body' in lastJsonMessage
+    ) {
+      const message: MessageType = {
+        id: '',
+        name: lastJsonMessage.name as string,
+        body: lastJsonMessage.body as string,
+        sent_to: otherUser as UserType,
+        created_by: myUser as UserType,
+        conversationId: conversation.id,
+      };
 
-  //       setRealtimeMessages((realtimeMessages) => [...realtimeMessages, message]);
-  //     }
+      setRealtimeMessages((realtimeMessages) => [...realtimeMessages, message]);
+    }
 
-  //     scrollToBottom();
-  //   }, [lastJsonMessage]);
+    scrollToBottom();
+  }, [lastJsonMessage]);
 
-  //   const sendMessage = async () => {
-  //     console.log('sendMessage'),
-  //       sendJsonMessage({
-  //         event: 'chat_message',
-  //         data: {
-  //           body: newMessage,
-  //           name: myUser?.name,
-  //           sent_to_id: otherUser?.id,
-  //           conversation_id: conversation.id,
-  //         },
-  //       });
+  const sendMessage = async () => {
+    console.log('sendMessage'),
+      sendJsonMessage({
+        event: 'chat_message',
+        data: {
+          body: newMessage,
+          name: myUser?.name,
+          sent_to_id: otherUser?.id,
+          conversation_id: conversation.id,
+        },
+      });
 
-  //     setNewMessage('');
+    setNewMessage('');
 
-  //     setTimeout(() => {
-  //       scrollToBottom();
-  //     }, 50);
-  //   };
+    setTimeout(() => {
+      scrollToBottom();
+    }, 50);
+  };
 
   const scrollToBottom = () => {
     if (messagesDiv.current) {
-      messagesDiv.current.scrollTop = messagesDiv.current.scrollHeight;
+      messagesDiv.current.scrollTop = messagesDiv.current.scrollheight;
     }
   };
 
@@ -91,7 +91,7 @@ const ConversationDetail: React.FC<any> = ({
         ref={messagesDiv}
         className="max-h-[400px] overflow-auto flex flex-col space-y-4"
       >
-        {/* {messages.map((message, index) => (
+        {messages.map((message, index) => (
           <div
             key={index}
             className={`w-[80%]py-4 px-6 rounded-xl ${
@@ -103,9 +103,9 @@ const ConversationDetail: React.FC<any> = ({
             <p className="font-bold text-gray-500">{message.created_by.name}</p>
             <p>{message.body}</p>
           </div>
-        ))} */}
+        ))}
 
-        {/* {realtimeMessages.map((message, index) => (
+        {realtimeMessages.map((message, index) => (
           <div
             key={index}
             className={`w-[80%]py-4 px-6 rounded-xl ${
@@ -117,7 +117,7 @@ const ConversationDetail: React.FC<any> = ({
             <p className="font-bold text-gray-500">{message.name}</p>
             <p>{message.body}</p>
           </div>
-        ))} */}
+        ))}
       </div>
 
       <div className="mt-4 py-4 px-6 flex border border-gray-300 space-x-4 rounded-xl">
@@ -131,7 +131,7 @@ const ConversationDetail: React.FC<any> = ({
 
         <CustomButton
           label="Send"
-        //   onClick={sendMessage}
+          onClick={sendMessage}
           className="w-[100px]"
         />
       </div>

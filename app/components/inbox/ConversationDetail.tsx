@@ -27,7 +27,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
   const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
-    `ws://127.0.0.1:8000/ws/${conversation.id}/?token=${token}`,
+    `${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`,
     {
       share: false,
       shouldReconnect: () => true,
@@ -81,6 +81,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
 
   const scrollToBottom = () => {
     if (messagesDiv.current) {
+      // @ts-ignore
       messagesDiv.current.scrollTop = messagesDiv.current.scrollheight;
     }
   };

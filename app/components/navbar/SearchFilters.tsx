@@ -1,7 +1,13 @@
+'use client';
+
+import useSearchModal from '@/app/hooks/useSearchModal';
+
 const SearchFilters = () => {
+  const searchModal = useSearchModal();
+
   return (
     <div
-      //   onClick={() => searchModal.open('location')}
+      onClick={() => searchModal.open('location')}
       className="h-[48px] lg:h-[64] flex flex-row items-center justify-between border rounded-full"
     >
       <div className="hidden lg:block">
@@ -29,7 +35,7 @@ const SearchFilters = () => {
       </div>
 
       <div className="p-2">
-        <div className="cursor-pointer p-2 lg:p-3 bg-airbnb hover:bg-airbnb-dark transition rounded-full text-white">
+        <div className="cursor-pointer p-2 lg:p-4 bg-airbnb hover:bg-airbnb-dark transition rounded-full text-white">
           <svg
             viewBox="0 0 32 32"
             style={{

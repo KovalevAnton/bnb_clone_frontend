@@ -10,6 +10,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   const userId = await getUserId();
 
   console.log('userId', userId);
+  console.log(property, 'property');
 
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
